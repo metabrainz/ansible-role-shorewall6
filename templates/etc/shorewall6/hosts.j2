@@ -1,0 +1,16 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall6 -- /etc/shorewall6/hosts
+#
+# For information about entries in this file, type "man shorewall6-hosts"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages6/shorewall6-hosts.html
+#
+###############################################################################
+#ZONE		HOSTS				OPTIONS
+{% for entry in shorewall6_hosts %}
+{{ entry.zone }} {{ entry.hosts|d('-') }} {{ entry.options|d([])|join(',') }}
+{% endfor %}

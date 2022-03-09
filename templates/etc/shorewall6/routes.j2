@@ -1,0 +1,15 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall6 -- /etc/shorewall6/routes
+#
+# For information about entries in this file, type "man shorewall6-routes"
+#
+# For additional information, see http://www.shorewall.net/MultiISP.html
+#
+###############################################################################
+#PROVIDER		DEST			GATEWAY		DEVICE	OPTIONS
+{% for entry in shorewall6_routes + shorewall6_group_routes + shorewall6_host_routes %}
+{{ entry.provider }} {{ entry.dest }} {{ entry.gateway|d('-') }} {{ entry.device|d('-') }} {{ entry.options|d([])|join(',') }}
+{% endfor %}

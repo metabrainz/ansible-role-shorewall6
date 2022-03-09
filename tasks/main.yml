@@ -1,0 +1,46 @@
+- name: Install Shorewall6
+  apt:
+    name: "{{ shorewall6_packages }}"
+    state: present
+
+- name: Divert Shorewall6 configuration files
+  command: >
+    dpkg-divert --quiet --local
+    --divert {{ item }}.dpkg-divert
+    --rename {{ item }}
+  args:
+    creates: "{{ item }}.dpkg-divert"
+  with_items:
+    - /etc/default/shorewall6
+    - /etc/shorewall6/shorewall6.conf
+    - /etc/shorewall6/params
+
+- name: Install Shorewall6 configuration files
+  template:
+    src: "{{ item.src|d(item) }}.j2"
+    dest: "/{{ item.src|d(item) }}"
+    owner: "{{ item.owner|d(omit) }}"
+    group: "{{ item.group|d(omit) }}"
+    mode: "{{ item.mode|d(omit) }}"
+  with_items:
+    - etc/default/shorewall6
+    - etc/shorewall6/shorewall6.conf
+    - etc/shorewall6/hosts
+    - etc/shorewall6/interfaces
+    - src: etc/shorewall6/params
+      mode: "0640"
+    - etc/shorewall6/policy
+    - etc/shorewall6/routes
+    - etc/shorewall6/rules
+    - etc/shorewall6/snat
+    - etc/shorewall6/start
+    - etc/shorewall6/tunnels
+    - etc/shorewall6/zones
+  notify: check and restart shorewall6
+
+- name: Enable and start Shorewall6
+  service:
+    name: shorewall6
+    enabled: "{{ shorewall6_service_enabled }}"
+    state: "{{ shorewall6_service_state }}"
+  ignore_errors: "{{ ansible_check_mode }}"

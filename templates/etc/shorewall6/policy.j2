@@ -1,0 +1,16 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall6 -- /etc/shorewall6/policy
+#
+# For information about entries in this file, type "man shorewall6-policy"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages6/shorewall6-policy.html
+#
+###############################################################################
+#SOURCE		DEST		POLICY	LOGLEVEL	LIMIT	CONNLIMIT
+{% for policy in shorewall6_host_policy|d(shorewall6_group_policy|d(shorewall6_policy)) %}
+{{ policy.source }} {{ policy.dest }} {{ policy.policy }} {{ policy.log_level|d('-') }} {{ policy.limit|d('-') }} {{ policy.connlimit|d() }}
+{% endfor %}

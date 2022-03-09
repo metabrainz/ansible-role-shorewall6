@@ -1,0 +1,44 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Ensure Shorewall6 is installed
+      stat:
+        path: "/usr/sbin/shorewall6"
+      register: result
+      changed_when: false
+      failed_when: result.stat.islnk is not defined or not result.stat.islnk
+
+    - name: Ensure permissions on params configuration file are correct
+      stat:
+        path: "/etc/shorewall6/params"
+      register: shorewall6_params
+      failed_when: shorewall6_params.stat.mode != "0640"
+
+    - name: Ensure rule from shorewall6_group_rules is present
+      command:
+        argv:
+          - grep
+          - -q
+          - ^HTTPS(ACCEPT) net $FW
+          - /etc/shorewall6/rules
+      changed_when: false
+
+    - name: Ensure rule from shorewall6_host_rules is present
+      command:
+        argv:
+          - grep
+          - -q
+          - ^IMAP(ACCEPT) net $FW
+          - /etc/shorewall6/rules
+      changed_when: false
+
+    - name: Ensure dynamic blacklist support is set correctly
+      command:
+        argv:
+          - grep
+          - -q
+          - ^DYNAMIC_BLACKLIST=ipset-only,disconnect
+          - /etc/shorewall6/shorewall6.conf
+      changed_when: false

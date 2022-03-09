@@ -1,0 +1,6 @@
+---
+shorewall6_dynamic_blacklist: ipset-only,disconnect
+shorewall6_host_rules:
+  - action: IMAP(ACCEPT)
+    source: net
+    dest: $FW

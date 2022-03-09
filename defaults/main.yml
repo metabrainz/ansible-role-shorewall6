@@ -1,0 +1,102 @@
+---
+shorewall6_config_directory: /etc/shorewall6
+
+shorewall6_packages:
+  - shorewall6
+  # needed for ipset blacklisting
+  - ipset
+  # needed for ipset blacklisting with the disconnect option
+  - conntrack
+
+shorewall6_service_enabled: true
+shorewall6_service_state: started
+
+shorewall6_options: ""
+shorewall6_start_options: ""
+shorewall6_reload_options: ""
+shorewall6_restart_options: ""
+# NOTE: not supported by systemd
+shorewall6_stop_options: ""
+
+shorewall6_admin_is_absent_minded: true
+shorewall6_autohelpers: true
+shorewall6_clamp_mss: false
+shorewall6_dynamic_blacklist: false
+shorewall6_fast_accept: false
+shorewall6_optimize: All
+shorewall6_save_ipsets: false
+shorewall6_verbosity: 1
+
+shorewall6_zones:
+  - zone: fw
+    type: firewall
+  - zone: net
+    type: ipv6
+shorewall6_group_zones: []
+shorewall6_host_zones: []
+
+shorewall6_policy:
+  - source: fw
+    dest: all
+    policy: ACCEPT
+  - source: all
+    dest: all
+    policy: REJECT
+
+shorewall6_interfaces:
+  - interface: +
+    zone: net
+shorewall6_group_interfaces: []
+shorewall6_host_interfaces: []
+
+shorewall6_rules:
+  - action: SSH(ACCEPT)
+    source: net
+    dest: $FW
+  - action: Ping(ACCEPT)
+    source: net
+    dest: $FW
+    rate: 100/min:50
+  - action: AllowICMPs(ACCEPT)
+    source: net
+    dest: $FW
+shorewall6_group_rules: []
+shorewall6_host_rules: []
+
+shorewall6_hosts: []
+# shorewall6_hosts:
+#   - zone: net
+#     hosts: eth0:2001:470:b:787::0/64
+#     options:
+#       - nosmurfs
+
+shorewall6_snat: []
+# shorewall6_snat:
+#   - action: MASQUERADE
+#     source: 2001:470:b:787::0/64
+#     dest: eth0
+
+shorewall6_tunnels: []
+# shorewall6_tunnels:
+#   - type: openvpnserver
+#     zone: net
+#     gateway_zones:
+#       - gw
+
+shorewall6_routes: []
+# shorewall6_routes:
+#   - provider: main
+#     dest: 2001:470:b:787::0/64
+#     gateway: blackhole
+shorewall6_group_routes: []
+shorewall6_host_routes: []
+
+shorewall6_params: {}
+# shorewall6_params:
+#   NET_IF: eth0
+shorewall6_group_params: {}
+shorewall6_host_params: {}
+
+#shorewall6_start: |
+#  run_iptables -N custom
+#  run_iptables -I INPUT 1 -j custom

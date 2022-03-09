@@ -1,0 +1,5 @@
+---
+shorewall6_group_rules:
+  - action: HTTPS(ACCEPT)
+    source: net
+    dest: $FW
