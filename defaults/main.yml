@@ -1,6 +1,4 @@
 ---
-shorewall6_config_directory: /etc/shorewall6
-
 shorewall6_packages:
   - shorewall6
   # needed for ipset blacklisting
