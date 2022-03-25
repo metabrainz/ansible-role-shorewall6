@@ -11,7 +11,7 @@
 #
 ###############################################################################
 #ZONE		TYPE		OPTIONS		IN_OPTIONS	OUT_OPTIONS
-
-{% for zone in shorewall6_zones + shorewall6_group_zones + shorewall6_host_zones %}
+{% set _zones = shorewall6_zones + shorewall6_group_zones + shorewall6_host_zones %}
+{% for zone in _zones if not zone.skip_when|d()|bool %}
 {{ zone.zone }} {{ zone.type|d('-') }} {{ zone.options|d([])|join(',') }}
 {% endfor %}

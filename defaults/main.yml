@@ -40,6 +40,8 @@ shorewall6_policy:
   - source: all
     dest: all
     policy: REJECT
+# shorewall6_group_policy: []
+# shorewall6_host_policy: []
 
 shorewall6_interfaces:
   - interface: +
