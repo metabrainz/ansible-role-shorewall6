@@ -2,10 +2,12 @@
   listen: check and restart shorewall6
   command: shorewall6 check
   notify: restart shorewall6
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: Restart Shorewall6
   listen: restart shorewall6
   service:
     name: shorewall6
-    state: restarted
+    state: "{{ shorewall6_restart_handler_state }}"
   when: shorewall6_service_state == "started"
+  ignore_errors: "{{ ansible_check_mode }}"

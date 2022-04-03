@@ -8,6 +8,7 @@ shorewall6_packages:
 
 shorewall6_service_enabled: true
 shorewall6_service_state: started
+shorewall6_restart_handler_state: restarted
 
 shorewall6_options: ""
 shorewall6_start_options: ""
