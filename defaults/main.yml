@@ -21,6 +21,8 @@ shorewall6_autohelpers: true
 shorewall6_clamp_mss: false
 shorewall6_dynamic_blacklist: false
 shorewall6_fast_accept: false
+# https://bugs.launchpad.net/ubuntu/+source/shorewall/+bug/1096504
+shorewall6_logfile: /var/log/syslog
 shorewall6_optimize: All
 shorewall6_save_ipsets: false
 shorewall6_verbosity: 1
