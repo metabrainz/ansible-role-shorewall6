@@ -22,7 +22,7 @@
     owner: "{{ item.owner|d(omit) }}"
     group: "{{ item.group|d(omit) }}"
     mode: "{{ item.mode|d(omit) }}"
-  with_items:
+  loop:
     - etc/default/shorewall6
     - etc/shorewall6/shorewall6.conf
     - etc/shorewall6/hosts
