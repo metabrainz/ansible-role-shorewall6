@@ -3,6 +3,7 @@
   command: shorewall6 check
   notify: restart shorewall6
   ignore_errors: "{{ ansible_check_mode }}"
+  changed_when: false
 
 - name: Restart Shorewall6
   listen: restart shorewall6
