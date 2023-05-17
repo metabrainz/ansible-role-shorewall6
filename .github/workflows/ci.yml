@@ -53,16 +53,16 @@ jobs:
           - ubuntu2004
           - ubuntu2204
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          path: metabrainz.shorewall6
+
       - name: Load required kernel modules
         run: >
           sudo modprobe
           ip6_tables ip6t_REJECT nf_conntrack_ipv6
           xt_conntrack xt_connmark xt_state
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          path: metabrainz.shorewall6
 
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v4
