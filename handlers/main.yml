@@ -1,7 +1,7 @@
-- name: Check and restart Shorewall6
-  listen: check and restart shorewall6
+---
+- name: Check Shorewall6
+  listen: check shorewall6
   command: shorewall6 check
-  notify: restart shorewall6
   ignore_errors: "{{ ansible_check_mode }}"
   changed_when: false
 

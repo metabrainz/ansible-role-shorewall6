@@ -36,7 +36,9 @@
     - etc/shorewall6/start
     - etc/shorewall6/tunnels
     - etc/shorewall6/zones
-  notify: check and restart shorewall6
+  notify:
+    - check shorewall6
+    - restart shorewall6
 
 - name: Enable and start Shorewall6
   service:
