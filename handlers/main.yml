@@ -1,13 +1,13 @@
 ---
 - name: Check Shorewall6
   listen: check shorewall6
-  command: shorewall6 check
+  ansible.builtin.command: shorewall6 check
   ignore_errors: "{{ ansible_check_mode }}"
   changed_when: false
 
 - name: Restart Shorewall6
   listen: restart shorewall6
-  service:
+  ansible.builtin.service:
     name: shorewall6
     state: "{{ shorewall6_restart_handler_state }}"
   when: shorewall6_service_state == "started"

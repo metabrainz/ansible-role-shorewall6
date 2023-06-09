@@ -1,10 +1,10 @@
 - name: Install Shorewall6
-  apt:
+  ansible.builtin.apt:
     name: "{{ shorewall6_packages }}"
     state: present
 
 - name: Divert Shorewall6 configuration files
-  command: >
+  ansible.builtin.command: >
     dpkg-divert --quiet --local
     --divert {{ item }}.dpkg-divert
     --rename {{ item }}
@@ -16,7 +16,7 @@
     - /etc/shorewall6/params
 
 - name: Install Shorewall6 configuration files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src | d(item) }}.j2"
     dest: "/{{ item.src | d(item) }}"
     owner: "{{ item.owner | d(omit) }}"
@@ -41,7 +41,7 @@
     - restart shorewall6
 
 - name: Enable and start Shorewall6
-  service:
+  ansible.builtin.service:
     name: shorewall6
     enabled: "{{ shorewall6_service_enabled }}"
     state: "{{ shorewall6_service_state }}"
