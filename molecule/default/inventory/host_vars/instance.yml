@@ -12,3 +12,6 @@ shorewall6_host_rules:
     source: "net:2606:4700:4700::1111"
     dest: $FW
     skip_when: "{{ ansible_hostname != 'instance' }}"
+
+shorewall6_host_params:
+  LOCALHOST: "::1"

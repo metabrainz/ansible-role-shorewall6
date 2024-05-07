@@ -62,3 +62,21 @@
           - ^DNS(REJECT) net:2606:4700:4700::1111 $FW
           - /etc/shorewall6/rules
       changed_when: false
+
+    - name: Ensure nested list in shorewall_group_params is flattened
+      command:
+        argv:
+          - grep
+          - -q
+          - "^NESTED_LIST=2606:4700:4700::1111,2606:4700:4700::1001,2001:4860:4860::8888"
+          - /etc/shorewall6/params
+      changed_when: false
+
+    - name: Ensure shorewall_params vars are merged
+      command:
+        argv:
+          - grep
+          - -q
+          - "^LOCALHOST=::1"
+          - /etc/shorewall6/params
+      changed_when: false
