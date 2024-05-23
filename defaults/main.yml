@@ -100,6 +100,6 @@ shorewall6_params: {}
 shorewall6_group_params: {}
 shorewall6_host_params: {}
 
-#shorewall6_start: |
+# shorewall6_start: |
 #  run_iptables -N custom
 #  run_iptables -I INPUT 1 -j custom
