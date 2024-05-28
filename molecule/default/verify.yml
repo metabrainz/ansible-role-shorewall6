@@ -64,7 +64,7 @@
       changed_when: false
 
     - name: Ensure nested list in shorewall_group_params is flattened
-      command:
+      ansible.builtin.command:
         argv:
           - grep
           - -q
@@ -73,7 +73,7 @@
       changed_when: false
 
     - name: Ensure shorewall_params vars are merged
-      command:
+      ansible.builtin.command:
         argv:
           - grep
           - -q
